@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import RecruiterDashboard from "../pages/RecruiterDashboard";
 import ProtectedRoute from "../components/ProtectedRoute"; // ✅ NEW
+import CreateJob from "../pages/CreateJob";
 
 export default function AppRoutes() {
   return (
@@ -30,6 +31,17 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+       
+
+<Route
+  path="/create-job"
+  element={
+    <ProtectedRoute allowedRoles={["recruiter"]}>
+      <CreateJob />
+    </ProtectedRoute>
+  }
+/>
+
 
         <Route
           path="/jobs/:id"

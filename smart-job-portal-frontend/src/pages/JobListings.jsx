@@ -61,12 +61,7 @@ export default function JobListings() {
             <option value="Remote">Remote</option>
           </select>
         </div>
-        <div className="col-md-4">
-          <select className="form-control" value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-          </select>
-        </div>
+        
       </div>
 
       {/* Job Cards */}

@@ -45,15 +45,13 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             {/* Always show Jobs link after login */}
-            {isLoggedIn && (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
-              </li>
-            )}
-
+            
             {/* Show Applications + Saved Jobs for candidates */}
             {isLoggedIn && role === "candidate" && (
               <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
+              </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/applications">
                     Applications
@@ -75,6 +73,7 @@ export default function Navbar() {
                 </NavLink>
               </li>
             )}
+            
 
             {/* Show login/register when not logged in */}
             {!isLoggedIn && (
@@ -86,7 +85,12 @@ export default function Navbar() {
                   <NavLink className="nav-link" to="/register">Register</NavLink>
                 </li>
               </>
-            )}
+            )}{localStorage.getItem("role") === "recruiter" && (
+  <li className="nav-item">
+    <Link className="nav-link" to="/create-job">Post a Job</Link>
+  </li>
+)}
+
 
             {/* Show logout when logged in */}
             {isLoggedIn && (

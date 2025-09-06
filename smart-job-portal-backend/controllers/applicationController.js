@@ -19,6 +19,7 @@ const applyJob = (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
   }
 
+  // Check if the candidate already applied
   const checkSql = "SELECT * FROM applications WHERE email = ? AND jobId = ?";
   db.query(checkSql, [email, jobId], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -27,6 +28,7 @@ const applyJob = (req, res) => {
       return res.status(400).json({ error: "You have already applied to this job" });
     }
 
+    // Insert new application
     const sql =
       "INSERT INTO applications (name, email, jobId, resumeFile, status, appliedDate) VALUES (?, ?, ?, ?, 'applied', NOW())";
 
@@ -44,10 +46,21 @@ const getApplications = (req, res) => {
   let params = [];
 
   if (req.user.role === "candidate") {
-    sql = "SELECT * FROM applications WHERE email = ? ORDER BY appliedDate DESC";
+    sql = `
+      SELECT a.*, j.title AS jobTitle, j.company AS companyName
+      FROM applications a
+      JOIN jobs j ON a.jobId = j.id
+      WHERE a.email = ?
+      ORDER BY a.appliedDate DESC
+    `;
     params.push(req.user.email);
   } else if (req.user.role === "recruiter") {
-    sql = "SELECT * FROM applications ORDER BY appliedDate DESC";
+    sql = `
+      SELECT a.*, j.title AS jobTitle, j.company AS companyName
+      FROM applications a
+      JOIN jobs j ON a.jobId = j.id
+      ORDER BY a.appliedDate DESC
+    `;
   } else {
     return res.status(403).json({ error: "Unauthorized" });
   }

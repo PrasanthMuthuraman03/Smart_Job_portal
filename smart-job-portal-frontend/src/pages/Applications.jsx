@@ -3,8 +3,6 @@ import { fetchApplications } from "../api/applicationsApi";
 
 export default function Applications() {
   const [applications, setApplications] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const loadApplications = async () => {
@@ -13,17 +11,10 @@ export default function Applications() {
         setApplications(data);
       } catch (err) {
         console.error("Error fetching applications", err);
-        setError("Failed to load applications. Please try again.");
-      } finally {
-        setLoading(false);
       }
     };
-
     loadApplications();
   }, []);
-
-  if (loading) return <p className="text-center my-4">Loading applications...</p>;
-  if (error) return <p className="text-center text-danger my-4">{error}</p>;
 
   if (applications.length === 0) {
     return <p className="text-center my-4">You haven’t applied to any jobs yet.</p>;
@@ -35,9 +26,8 @@ export default function Applications() {
       <table className="table table-bordered table-striped mt-3">
         <thead>
           <tr>
-            <th>Job ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Job Title</th>
+            <th>Company</th>
             <th>Status</th>
             <th>Applied Date</th>
           </tr>
@@ -45,9 +35,8 @@ export default function Applications() {
         <tbody>
           {applications.map((app) => (
             <tr key={app.id}>
-              <td>{app.jobId}</td>
-              <td>{app.name}</td>
-              <td>{app.email}</td>
+              <td>{app.jobTitle}</td>
+              <td>{app.companyName}</td>
               <td>
                 <span className="badge bg-primary">{app.status}</span>
               </td>
