@@ -14,22 +14,7 @@ export default function Footer() {
           </div>
 
           {/* Right Section - Quick Links */}
-          <div className="col-md-6 d-flex align-items-center justify-content-md-end">
-            <nav>
-              <Link to="/" className="text-white me-3 text-decoration-none">
-                Home
-              </Link>
-              <Link to="/jobs" className="text-white me-3 text-decoration-none">
-                Jobs
-              </Link>
-              <Link to="/saved" className="text-white me-3 text-decoration-none">
-                Saved Jobs
-              </Link>
-              <Link to="/applications" className="text-white text-decoration-none">
-                Applications
-              </Link>
-            </nav>
-          </div>
+          
         </div>
 
         {/* Divider */}

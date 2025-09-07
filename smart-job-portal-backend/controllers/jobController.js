@@ -107,7 +107,7 @@ const createJob = (req, res) => {
   const sql =
     "INSERT INTO jobs (title, company, location, description, skills, postedDate) VALUES (?, ?, ?, ?, ?, NOW())";
 
-  db.query(sql, [title, company, location, description, skills], (err, result) => {
+  db.query(sql, [title, company, location, description, JSON.stringify(skills)], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
 
     res.status(201).json({

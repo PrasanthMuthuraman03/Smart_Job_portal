@@ -24,7 +24,7 @@ export default function CreateJob() {
       );
 
       alert("✅ Job posted successfully!");
-      window.location.href = "/jobs"; // redirect to job listings
+      window.location.href = "/create-job"; // redirect to job listings
     } catch (err) {
       alert(err.response?.data?.error || "Failed to create job");
     }
